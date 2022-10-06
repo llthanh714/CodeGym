@@ -6,8 +6,10 @@ class Pokemon {
         this.pokesTable = document.getElementById("poke-table")
         this.preBtn = document.getElementById("pre-link")
         this.nextBtn = document.getElementById("next-link")
+        this.loader = document.getElementById("loader")
     }
     async getPokemons(url) {
+        this.loader.style.display = "block";
         const respones = await axios.get(url, {
         })
             .then(response => {
@@ -18,7 +20,7 @@ class Pokemon {
                 return []
             })
             .finally(() => {
-                console.log('Api done!')
+                this.loader.style.display = "none";
             });
         return respones
     }
