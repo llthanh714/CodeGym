@@ -65,17 +65,17 @@ class Pokemon {
     pageNavigation() {
         this.nextBtn.onclick = () => {
             this.offset += this.limit
-            this.getPokemons(this.offset)
+            this.getPokemons()
                 .then(respones => this.setDataFromApi(respones))
         }
         this.preBtn.onclick = () => {
             this.offset -= this.limit
-            this.getPokemons(this.offset)
+            this.getPokemons()
                 .then(respones => this.setDataFromApi(respones))
         }
     }
     init() {
-        this.getPokemons(this.offset)
+        this.getPokemons()
             .then(respones => this.setDataFromApi(respones))
         this.pageNavigation()
     }
