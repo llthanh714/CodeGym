@@ -1,6 +1,6 @@
 class Pokemon {
     constructor() {
-        this.nextPageUrl = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=15'
+        this.nextPageUrl = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=100'
         this.prePageUrl = ''
         this.lstPokemons = []
         this.pokesTable = document.getElementById("poke-table")
