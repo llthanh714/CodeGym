@@ -6,8 +6,8 @@ class Pokemon {
         this.prePageUrl = ''
         this.lstPokemons = []
         this.pokesTable = document.getElementById("poke-table")
-        this.preBtn = document.getElementById("pre-link")
-        this.nextBtn = document.getElementById("next-link")
+        this.preBtn = document.getElementById("pre-btn")
+        this.nextBtn = document.getElementById("next-btn")
         this.loader = document.getElementById("loader")
     }
     async getPokemons() {
