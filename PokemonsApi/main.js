@@ -1,39 +1,46 @@
 class Pokemon {
     constructor() {
-        this.nextPage = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=100'
-        this.prePage = null
-    }
-    get urlNextPage() {
-        return this.nextPage
-    }
-    set urlNextPage(nextPage) {
-        this.nextPage = nextPage
-    }
-    get urlPrePage() {
-        return this.prePage
-    }
-    set urlPrePage(prePage) {
-        this.prePage = prePage
+        this.nextPageUrl = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=100'
+        this.prePageUrl = ''
+        this.lstPokemons = []
     }
     async getPokemons(url) {
-        await axios.get(url, {
+        const respones = await axios.get(url, {
         })
             .then(response => {
-                console.log(response.data)
-                return response.data
+                return response
             })
             .catch(error => {
                 console.log(error)
+                return []
             })
             .finally(() => {
-                console.log('Done')
+                console.log('Api done!')
             });
+        return respones
+    }
+    setDataFromApi(respones) {
+        let { results, next, previous } = respones.data
+        this.nextPageUrl = next
+        this.prePageUrl = previous
+        this.lstPokemons = results
+        this.showPokemonsToTable()
+    }
+    showPokemonsToTable() {
+        let htmls = ''
+        this.lstPokemons.forEach((poke, index) => {
+            htmls += `<tr>
+                <td>${index + 1}</td>
+                <td>${poke.name}</td>
+                <td><a href="${poke.url}">Detail</a></td>
+            </tr>`
+        })
+        document.getElementById("poke-table").innerHTML = htmls
+    }
+    init() {
+        this.getPokemons(this.nextPageUrl).then(respones => this.setDataFromApi(respones))
     }
 };
 
-async function Inits(){
-    let poke = new Pokemon()
-    let data = await poke.getPokemons(poke.urlNextPage)
-}
-
-Inits()
+const poke = new Pokemon()
+poke.init()
