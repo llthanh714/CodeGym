@@ -37,16 +37,16 @@ class Pokemon {
         this.lstPokemons = results
         this.showPokemonsToTable()
 
-        if (this.nextPageUrl == null){
+        if (this.nextPageUrl == null) {
             this.nextBtn.parentElement.classList.add('disabled')
         }
-        else{
+        else {
             this.nextBtn.parentElement.classList.remove('disabled')
         }
-        if (this.prePageUrl == null){
+        if (this.prePageUrl == null) {
             this.preBtn.parentElement.classList.add('disabled')
         }
-        else{
+        else {
             this.preBtn.parentElement.classList.remove('disabled')
         }
     }
