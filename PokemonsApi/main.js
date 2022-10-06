@@ -1,6 +1,8 @@
 class Pokemon {
     constructor() {
-        this.nextPageUrl = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=100'
+        this.offset = 0
+        this.limit = 100
+        this.nextPageUrl = ''
         this.prePageUrl = ''
         this.lstPokemons = []
         this.pokesTable = document.getElementById("poke-table")
@@ -8,9 +10,13 @@ class Pokemon {
         this.nextBtn = document.getElementById("next-link")
         this.loader = document.getElementById("loader")
     }
-    async getPokemons(url) {
+    async getPokemons() {
         this.loader.style.display = "block";
-        const respones = await axios.get(url, {
+        const respones = await axios.get('https://pokeapi.co/api/v2/pokemon', {
+            params: {
+                limit: this.limit,
+                offset: this.offset
+            }
         })
             .then(response => {
                 return response
@@ -49,7 +55,7 @@ class Pokemon {
         document.getElementById("poke-table").innerHTML = htmls
         this.lstPokemons.forEach((poke, index) => {
             htmls += `<tr>
-                <td>${index + 1}</td>
+                <td>${(this.offset + index + 1)}</td>
                 <td>${poke.name}</td>
                 <td><a href="${poke.url}">Detail</a></td>
             </tr>`
@@ -58,16 +64,18 @@ class Pokemon {
     }
     pageNavigation() {
         this.nextBtn.onclick = () => {
-            this.getPokemons(this.nextPageUrl)
+            this.offset += this.limit
+            this.getPokemons(this.offset)
                 .then(respones => this.setDataFromApi(respones))
         }
         this.preBtn.onclick = () => {
-            this.getPokemons(this.prePageUrl)
+            this.offset -= this.limit
+            this.getPokemons(this.offset)
                 .then(respones => this.setDataFromApi(respones))
         }
     }
     init() {
-        this.getPokemons(this.nextPageUrl)
+        this.getPokemons(this.offset)
             .then(respones => this.setDataFromApi(respones))
         this.pageNavigation()
     }
