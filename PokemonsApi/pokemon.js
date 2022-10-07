@@ -9,6 +9,7 @@ class Pokemon {
         this.preBtn = document.getElementById("pre-btn")
         this.nextBtn = document.getElementById("next-btn")
         this.loader = document.getElementById("loader")
+        this.init()
     }
     async getPokemons() {
         this.loader.style.display = "block";
@@ -52,7 +53,7 @@ class Pokemon {
     }
     showPokemonsToTable() {
         let htmls = ''
-        document.getElementById("poke-table").innerHTML = htmls
+        this.pokesTable.innerHTML = htmls
         this.lstPokemons.forEach((poke, index) => {
             htmls += `<tr>
                 <td>${(this.offset + index + 1)}</td>
@@ -82,4 +83,3 @@ class Pokemon {
 };
 
 const poke = new Pokemon()
-poke.init()
