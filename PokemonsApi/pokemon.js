@@ -37,19 +37,8 @@ class Pokemon {
         this.prePageUrl = previous
         this.lstPokemons = results
         this.showPokemonsToTable()
-
-        if (this.nextPageUrl == null) {
-            this.nextBtn.parentElement.classList.add('disabled')
-        }
-        else {
-            this.nextBtn.parentElement.classList.remove('disabled')
-        }
-        if (this.prePageUrl == null) {
-            this.preBtn.parentElement.classList.add('disabled')
-        }
-        else {
-            this.preBtn.parentElement.classList.remove('disabled')
-        }
+        this.nextBtn.parentElement.classList.toggle('disabled', !this.nextPageUrl);
+        this.preBtn.parentElement.classList.toggle('disabled', !this.prePageUrl);
     }
     showPokemonsToTable() {
         let htmls = ''
